@@ -5,6 +5,20 @@ const { User } = require("../models");
 
 module.exports = class UserController {
 
+    static async register (req, res, next){
+        try {   
+            const {email, password, username, gender, age, imageUrl} = req.body
+            const user = await User.create({email, password, username, gender, age, imageUrl});
+
+            res.status(201).json({
+                "id": user.id,
+                "username": user.username
+            });
+
+        } catch (error) {
+            next(error);
+        }
+    }
 
     static async login (req, res, next) {
         try {
