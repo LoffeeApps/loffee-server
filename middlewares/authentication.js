@@ -16,7 +16,8 @@ async function authentication(req, res, next){
 
         req.user = {
             id: user.id,
-            gender: user.gender
+            gender: user.gender,
+            username: user.username
         }
 
         next();
