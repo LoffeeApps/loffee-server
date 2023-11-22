@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
 
-      User.hasMany(models.Conversation, { foreignKey: 'userId1', as: 'Sender' });
-      User.hasMany(models.Conversation, { foreignKey: 'userId2', as: 'Receiver' });
+      User.hasMany(models.Conversation, { foreignKey: 'userId1', as: 'SenderId' });
+      User.hasMany(models.Conversation, { foreignKey: 'userId2', as: 'ReceiverId' });
 
-      User.hasMany(models.Message, { foreignKey: 'userId1', as: 'Sender' });
+      User.hasMany(models.Message, { foreignKey: 'userId1', as: 'UserSender' });
 
       User.hasMany(models.Friend, { foreignKey: 'userId1', as: 'Sender' });
       User.hasMany(models.Friend, { foreignKey: 'userId2', as: 'Receiver' });
