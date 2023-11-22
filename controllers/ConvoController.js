@@ -1,4 +1,5 @@
 const { Conversation, Message, User } = require('../models');
+const { Op } = require('sequelize');
 
 module.exports = class ConvoController {
 
@@ -41,13 +42,25 @@ module.exports = class ConvoController {
         try {
 
             const convo = await Conversation.findAll({
-                include: [{
+                where: {
+                    [Op.or]: {
+                        userId1: req.user.id,
+                        userId2: req.user.id,
+                    }
+                },
+                include: [
+                    {
                     model: User,
                     as: "ReceiverId"
-                }]
+                },
+                    {
+                    model: User,
+                    as: "SenderId"
+                },
+            ]
             })
 
-            res.status(201).json(convo)
+            res.status(201).json({convo, username: req.user.username})
         } catch (error) {
             next(error)
             console.log(error)
@@ -57,7 +70,7 @@ module.exports = class ConvoController {
 
     static async getConvoById(req, res, next) {
         try {
-
+            
             const convo = await Conversation.findOne({
                 where: {
                     id: req.params.id
@@ -77,7 +90,7 @@ module.exports = class ConvoController {
             ]
             })
 
-            res.status(201).json(convo)
+            res.status(201).json({convo, username: req.user.username})
         } catch (error) {
             next(error)
             console.log(error)
