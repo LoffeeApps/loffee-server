@@ -5,6 +5,7 @@ const { User } = require("../models");
 
 module.exports = class UserController {
 
+
     static async register (req, res, next){
         try {   
             const {email, password, username, gender, age, imageUrl} = req.body
@@ -19,6 +20,7 @@ module.exports = class UserController {
             next(error);
         }
     }
+
 
     static async login (req, res, next) {
         try {
@@ -52,6 +54,30 @@ module.exports = class UserController {
         } catch (error) {
             console.log(error)
             next(error);
+        }
+    }
+
+
+    static async users (req, res, next) {
+        try {
+
+            const {gender} = req.user
+
+            let gen = "Male";
+
+            if(gender === "Male") {
+                gen = "Female"
+            }
+
+            const users = await User.findAll({
+                where: {
+                    gender: gen
+                }
+            })
+            
+            res.status(200).json(users)
+        } catch (error) {
+            next(error)
         }
     }
 

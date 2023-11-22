@@ -20,7 +20,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Conversation.init({
     userId1: DataTypes.INTEGER,
-    userId2: DataTypes.INTEGER
+
+    userId2: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
+    
   }, {
     sequelize,
     modelName: 'Conversation',

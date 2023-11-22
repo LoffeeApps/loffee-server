@@ -22,7 +22,7 @@ module.exports = class FriendController {
                 res.status(201).json(newFriend)
             }
 
-            // throw {name: "AlreadyFriend"}
+            throw {name: "AlreadyFriend"}
 
         } catch (error) {
             console.log(error)
@@ -49,6 +49,5 @@ module.exports = class FriendController {
             next(error)
         }
     }
-
 
 }
