@@ -16,25 +16,7 @@ const io = new Server(server, {
     }
 })
 
-// let acktiveUsers = []
 io.on('connection', (socket) => {
-    // socket.on('addUser', (newUserId) => {
-    //     if (!acktiveUsers.some((user) => user.userId === newUserId)) {
-    //         acktiveUsers.push({
-    //             userId: newUserId,
-    //             socketId: socket.id
-    //         })
-    //     }
-
-    //     console.log('Connected', acktiveUsers)
-    //     io.emit('get-users', acktiveUsers)
-    // })
-
-    // socket.on('disconnected', () => {
-    //     acktiveUsers = acktiveUsers.filter((user) => user.socketId !== socket.id)
-    //     console.log('Disconnected', acktiveUsers)
-    //     io.emit('get-users', acktiveUsers)
-    // })
     console.log('New Connection with ID: ', socket.id)
 
     socket.on("sendMessage", (payload) => {
