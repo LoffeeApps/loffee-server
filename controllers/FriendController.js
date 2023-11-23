@@ -1,6 +1,6 @@
 
 const { Op } = require('sequelize');
-const { Friend } = require('../models');
+const { Friend, User } = require('../models');
 
 module.exports = class FriendController {
 
@@ -40,10 +40,20 @@ module.exports = class FriendController {
                         userId1: req.user.id,
                         userId2: req.user.id,
                     }
-                }
+                },
+                include:[
+                    {
+                        model: User,
+                        as: "Sender",
+                    },
+                    {
+                        model: User,
+                        as: "Receiver",
+                    }
+                ]
             })
 
-            res.status(200).json(friends)
+            res.status(200).json({friends, sender: req.user.username})
 
         } catch (error) {
             next(error)
